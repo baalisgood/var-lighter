@@ -1,0 +1,14 @@
+# Fill your own account information locally; never distribute filled credentials.
+exchange_id: lighter
+name: Lighter
+api_key: ""
+api_secret: ""
+api_config:
+  testnet: false
+  auth:
+    enabled: false
+    api_key_private_key: ""
+    account_index: null
+    api_key_index: null
+# Runtime also supports LIGHTER_API_KEY_PRIVATE_KEY, LIGHTER_ACCOUNT_INDEX,
+# and LIGHTER_API_KEY_INDEX. Empty credentials cannot submit orders.

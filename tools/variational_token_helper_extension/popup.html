@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Variational Token Helper</title>
+    <style>
+      body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 12px; width: 360px; }
+      .row { margin-bottom: 10px; }
+      .label { font-size: 12px; color: #555; margin-bottom: 4px; }
+      textarea { width: 100%; height: 64px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; font-size: 11px; }
+      button { margin-right: 8px; }
+      .meta { font-size: 11px; color: #666; }
+      .warn { color: #b45309; }
+    </style>
+  </head>
+  <body>
+    <div class="row">
+      <div class="label">Bearer Token（从 /api/quotes/indicative 请求头提取）</div>
+      <textarea id="token" placeholder="尚未捕获到 token。请打开 omni.variational.io 并触发一次报价请求。"></textarea>
+      <div style="margin-top:8px;">
+        <button id="copyToken">复制 Token</button>
+        <button id="copyEnv">复制 .env 两行</button>
+        <button id="clear">清除</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="label">Cookie Header（可选）</div>
+      <textarea id="cookie" placeholder="尚未捕获到 Cookie（如果站点依赖 Cookie 认证，可在这里看到）。"></textarea>
+      <div style="margin-top:8px;">
+        <button id="copyCookie">复制 Cookie</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="label">User-Agent（建议一并导出，避免 cf_clearance 绑定导致 403）</div>
+      <textarea id="userAgent" placeholder="尚未捕获到 User-Agent。请触发一次 /api 请求。"></textarea>
+      <div style="margin-top:8px;">
+        <button id="copyUserAgent">复制 User-Agent</button>
+        <button id="copyUserAgentEnv">复制 export 命令</button>
+      </div>
+    </div>
+
+    <div class="row meta">
+      <div>Last URL: <span id="lastUrl">-</span></div>
+      <div>Last Seen: <span id="lastSeen">-</span></div>
+      <div class="warn">提示：扩展不会上传 token；请勿把 token 发给任何不可信的人。</div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+      <div class="label">资金费率接口候选（自动从页面 JSON 响应识别）</div>
+      <div class="meta">打开页面后切换币种/刷新，扩展会自动捕捉包含 funding 的字段并列在这里。</div>
+      <div id="fundingList" class="meta" style="margin-top:8px; white-space: pre-wrap;"></div>
+      <div style="margin-top:8px;">
+        <button id="copyFundingYaml">复制 funding_rate_source YAML</button>
+        <button id="clearFunding">清除候选</button>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+      <div class="label">交易/账户接口候选（用于生成 trade templates）</div>
+      <div class="meta">
+        去 Variational 页面执行一次“下单/撤单/打开仓位/钱包”等操作（可用最小数量），扩展会自动记录对应 API。
+      </div>
+      <div id="tradeList" class="meta" style="margin-top:8px; white-space: pre-wrap;"></div>
+      <div style="margin-top:8px;">
+        <button id="copyTradeYaml">复制 trade 模板 YAML（选第1条）</button>
+        <button id="clearTrade">清除候选</button>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+      <div class="label">WebSocket 接口候选（用于发现是否存在行情 WS）</div>
+      <div class="meta">
+        刷新/切换币种后，若页面建立了 WS 连接，扩展会记录 WS URL/订阅消息摘要/入站消息关键字段（不包含敏感 token）。
+      </div>
+      <div id="wsList" class="meta" style="margin-top:8px; white-space: pre-wrap;"></div>
+      <div style="margin-top:8px;">
+        <button id="copyPortfolioWsYaml">复制 portfolio WS 配置 YAML</button>
+        <button id="clearWs">清除候选</button>
+      </div>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
+
+

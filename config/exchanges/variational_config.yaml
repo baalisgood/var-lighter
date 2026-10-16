@@ -1,0 +1,73 @@
+# VAR delivery template: request structure restored locally from the original configuration.
+# Authentication headers/cookies and personal identifiers removed; use your own .env.
+# VARIATIONAL_API_KEY supplies the token; VARIATIONAL_COOKIE supplies browser authentication.
+# Both strategy templates remain monitor-only. These request paths are historical,
+# and must be checked against your own browser before enabling real orders.
+exchange_id: variational
+name: Variational
+api_key: ''
+api_secret: ''
+base_url: https://omni.variational.io
+extra_params:
+  token: ''
+  headers: {}
+  cookies: {}
+  origin: https://omni.variational.io
+  referer: https://omni.variational.io/
+  ws_enable: true
+  trade:
+    order_create_market_template:
+      method: POST
+      url: /api/orders/new/market
+      body:
+        is_reduce_only: '{{reduce_only}}'
+        max_slippage: '{{max_slippage}}'
+        quote_id: '{{quote_id}}'
+        side: '{{side}}'
+      timeout_seconds: 20
+      headers: {}
+      cookies: {}
+    orders_open_template:
+      method: GET
+      url: /api/orders/v2?status=pending&order_by=created_at&order=desc&limit={{limit}}&offset={{offset}}
+      body: null
+      timeout_seconds: 10
+      headers: {}
+      cookies: {}
+    orders_history_template:
+      method: GET
+      url: /api/orders/v2?status=canceled%2Ccleared%2Crejected&order_by=created_at&order=desc&limit={{limit}}&offset={{offset}}
+      body: null
+      timeout_seconds: 10
+      headers: {}
+      cookies: {}
+    trades_history_template:
+      method: GET
+      url: /api/trades?order_by=created_at&order=desc&limit={{limit}}&offset={{offset}}
+      body: null
+      timeout_seconds: 20
+      headers: {}
+      cookies: {}
+    balances_template:
+      method: GET
+      url: /api/portfolio?compute_margin=true
+      body: null
+      timeout_seconds: 10
+      headers: {}
+      cookies: {}
+    positions_template:
+      method: GET
+      url: /api/positions
+      body: null
+      timeout_seconds: 10
+      headers: {}
+      cookies: {}
+  funding_interval_s: 3600
+  settlement_asset: USDC
+  instrument_type: perpetual_future
+  account_data_source: rest+ws
+  account_rest_poll_interval_seconds: 5
+  account_rest_cache_ttl_seconds: 10
+  ws_portfolio_on_connect_messages:
+  - claims: '{{token}}'
+  trade_default_max_slippage: 0.001

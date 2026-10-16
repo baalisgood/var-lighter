@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "Variational Token Helper (Local)",
+  "version": "0.1.0",
+  "description": "仅用于本机从 omni.variational.io 的请求中提取 Bearer token（不上传，不外发）。",
+  "action": {
+    "default_title": "Variational Token",
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "storage",
+    "webRequest"
+  ],
+  "host_permissions": [
+    "https://omni.variational.io/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://omni.variational.io/*"],
+      "js": ["content_script.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["page_hook.js"],
+      "matches": ["https://omni.variational.io/*"]
+    }
+  ],
+  "background": {
+    "service_worker": "service_worker.js"
+  }
+}
+
+

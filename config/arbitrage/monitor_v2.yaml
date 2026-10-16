@@ -1,0 +1,52 @@
+# VAR–Lighter delivery template. Fill your own parameters; monitor_only defaults to true.
+exchanges:
+- lighter
+- variational
+symbols:
+- BTC-USDC-PERP
+- ETH-USDC-PERP
+- BNB-USDC-PERP
+- SOL-USDC-PERP
+- HYPE-USDC-PERP
+thresholds:
+  min_spread_pct: 0.1
+  min_funding_rate_diff: 0.01
+websocket:
+  ping_interval: 30
+  reconnect_delay: 5
+  max_reconnect_attempts: 5
+performance:
+  analysis_interval_ms: 10
+  ui_refresh_interval_ms: 1000
+  loop_interval_ms: 100
+  data_processor_time_budget_ms: 20
+data_flow:
+  latest_only_mode: true
+  latest_poll_interval_ms: 0
+  event_driven_analysis_enabled: true
+  event_driven_analysis_min_interval_ms: 0
+spread_alignment:
+  poll_anchor_alignment_enabled: true
+  poll_anchor_alignment_skip_log_interval_seconds: 300
+  poll_anchor_alignment_enable_log_interval_seconds: 3600
+health_check:
+  interval: 10
+  data_timeout: 90
+spread_history:
+  enabled: true
+  data_dir: data/spread_history
+  sampling:
+    interval_seconds: 60
+    strategy: max
+  write:
+    batch_size: 10
+    batch_timeout: 60.0
+    queue_maxsize: 500
+  storage:
+    compress_after_days: 10
+    archive_after_days: 30
+    cleanup_interval_hours: 24
+debug_cli:
+  enabled: false
+  interval_seconds: 1.0
+multi_exchange_config_path: config/arbitrage/multi_exchange_arbitrage.yaml

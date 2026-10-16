@@ -1,0 +1,33 @@
+# Local credentials and captured requests
+.env
+.env.*
+*.env
+env.*
+!env.template
+*.curl
+*.curl.*
+*.har
+*.pem
+*.key
+secrets/
+credentials/
+# Runtime state and local environments
+/logs/
+/data/
+.venv*/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.cache/
+# Local backups and editor/OS files
+backups/
+backup/
+*.bak
+*.backup
+*.orig
+*~
+.DS_Store
+.idea/
+.vscode/
